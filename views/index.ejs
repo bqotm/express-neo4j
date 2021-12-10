@@ -1,32 +1,145 @@
-<h3>add person</h3>
-<form method="POST" action="/person/add">
-  <input type="text" name="name" placeholder="name" />
-  <input type="submit" value="submit" />
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark"
+      aria-label="Fifth navbar example"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">neo4j network</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsExample05"
+          aria-controls="navbarsExample05"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-<h3>add Location</h3>
-<form method="POST" action="/location/add">
-  <input type="text" name="city" placeholder="city" />
-  <input type="submit" value="submit" />
-</form>
+        <div class="collapse navbar-collapse" id="navbarsExample05">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="/"
+                id="dropdown05"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Dropdown</a
+              >
+              <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                <li><a class="dropdown-item" href="/">Action</a></li>
+                <li><a class="dropdown-item" href="/">Another action</a></li>
+                <li>
+                  <a class="dropdown-item" href="/">Something else here</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <form>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </form>
+        </div>
+      </div>
+    </nav>
 
-<h3>connect friends</h3>
-<form method="POST" action="/friends/connect">
-  <input type="text" name="name1" placeholder="name" />
-  <input type="text" name="name2" placeholder="name" />
-  <input type="submit" value="submit" />
-</form>
 
-<h3>Persons</h3>
-<ul>
-  <% persons.forEach(function(person){ %>
-  <li><%= person.name %></li>
-  <% }) %>
-</ul>
+  <div class="container">
 
-<h3>Loactions</h3>
-<ul>
-  <% locations.forEach(function(location){ %>
-  <li><%= location.city %></li>
-  <% }) %>
-</ul>
+  <a class="btn btn-primary" data-toggle="collapse" href="#addAperson" role="button" aria-expanded="false" aria-controls="addAperson">
+    add new person
+  </a>
+
+  <div class="collapse" id="addAperson">
+    <div class="card card-body">
+      <h3>add person</h3>
+      <form method="POST" action="/person/add">
+        <input type="text" name="name" placeholder="name" />
+        <input type="submit" value="submit" class="btn btn-primary btn-sm" />
+      </form>
+    </div>
+  </div>
+
+  <a class="btn btn-primary" data-toggle="collapse" href="#addAperson" role="button" aria-expanded="false" aria-controls="addAperson">
+    add new person
+  </a>
+
+
+
+  <h3>add Location</h3>
+  <form method="POST" action="/location/add">
+    <input type="text" name="city" placeholder="city" />
+    <input type="submit" value="submit" class="btn btn-primary btn-sm" />
+  </form>
+
+  <a class="btn btn-primary" data-toggle="collapse" href="#addAperson" role="button" aria-expanded="false" aria-controls="addAperson">
+    add new person
+  </a>
+
+  <h3>connect friends</h3>
+  <form method="POST" action="/friends/connect">
+    <input type="text" name="name1" placeholder="name" />
+    <input type="text" name="name2" placeholder="name" />
+    <input type="submit" value="submit" class="btn btn-primary btn-sm" />
+  </form>
+
+  <a class="btn btn-primary" data-toggle="collapse" href="#addAperson" role="button" aria-expanded="false" aria-controls="addAperson">
+    add new person
+  </a>
+
+  <h3>person born in</h3>
+  <form method="POST" action="/person/born/add">
+    <input type="text" name="name" placeholder="name" />
+    <input type="text" name="city" placeholder="city" />
+    <input type="submit" value="submit" class="btn btn-primary btn-sm" />
+  </form>
+
+  <h3>Persons</h3>
+  <div class="row">
+    <% persons.forEach(function(person){ %>
+    <div class="col-md-2">
+      <div class="well"><i class="fa fa-user"></i><a href="/person/<%= person.id %>">
+        <%= person.name %>
+      </a>
+    </div>
+    </div>
+    <% }) %>
+    </div class="row">
+
+  <h3>Locations</h3>
+  <div class="row">
+    <% locations.forEach(function(location){ %>
+      <div class="col-md-2">
+    <div class="well"><i class="fa fa-map"></i>
+      <%= location.city %>
+    </div>
+  </div>
+    <% }) %>
+    </div>
+  </div>
+  </div>
+</body>
+</html>

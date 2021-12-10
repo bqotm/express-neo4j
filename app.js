@@ -95,6 +95,68 @@ app.post("/friends/connect", (req, res) => {
     });
 });
 
+//person born in [:BORN_IN]
+app.post("/person/born/add", (req, res) => {
+  const name = req.body.name;
+  const city = req.body.city;
+
+  session
+    .run(
+      "MATCH (a:Person {name:$name}), (b:Location {city:$city}) MERGE (a)-[:BORN_IN]->(b)",
+      { name, city }
+    )
+    .then((result) => {
+      res.redirect("/");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.get("/person/:id", (req, res) => {
+  const id = req.params.id;
+  session
+    .run("MATCH (n:Person) WHERE id(n)=toInteger($idP) RETURN n.name as name", {
+      idP: id,
+    })
+    .then((result) => {
+      const name = result.records[0].get("name");
+      session
+        .run(
+          "OPTIONAL MATCH (n:Person)-[r:BORN_IN]-(l:Location) WHERE id(n)=toInteger($idP) RETURN l.city as city",
+          { idP: id }
+        )
+        .then((result2) => {
+          const city = result2.records[0].get("city");
+          session
+            .run(
+              "OPTIONAL MATCH (n:Person)-[r:FRIEND]-(m:Person) WHERE id(n)=toInteger($idP) RETURN m",
+              { idP: id }
+            )
+            .then((result3) => {
+              const friendsArr = [];
+              result3.records.forEach((record) => {
+                if (record.get(0) != null) {
+                  friendsArr.push({
+                    id: record.get(0).identity.low,
+                    name: record.get(0).properties.name,
+                  });
+                }
+              });
+              res.render("person", {
+                id,
+                name,
+                city,
+                friends: friendsArr,
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+    });
+});
+
 app.listen(3000, () => {
   console.log("server started on port 3000");
 });
