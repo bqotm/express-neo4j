@@ -36,7 +36,14 @@ app.get("/", (req, res) => {
       session.run("MATCH (n:Location) RETURN n").then((result2) => {
         const locationArr = [];
         result2.records.forEach((record) => {
-          locationArr.push(record.get(0).properties);
+          locationArr.push({
+            id: record.get(0).identity.low,
+            city: record.get(0).properties.city,
+          });
+          console.log({
+            id: record.get(0).identity.low,
+            city: record.get(0).properties.city,
+          });
         });
         res.render("index", {
           persons: personArr,
@@ -136,7 +143,7 @@ app.get("/person/:id", (req, res) => {
           const city = result2.records[0].get("city");
           session
             .run(
-              "OPTIONAL MATCH (n:Person)-[r:FRIEND]-(m:Person) WHERE id(n)=toInteger($idP) RETURN m",
+              "OPTIONAL MATCH (n:Person)-[r:FRIEND]->(m:Person) WHERE id(n)=toInteger($idP) RETURN m",
               { idP: id }
             )
             .then((result3) => {
