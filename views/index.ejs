@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <nav
-      class="navbar navbar-expand-lg navbar-dark bg-dark"
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark"
       aria-label="Fifth navbar example"
     >
       <div class="container-fluid">
@@ -66,80 +78,164 @@
       </div>
     </nav>
 
-
-  <div class="container">
-
-  <a class="btn btn-primary" data-toggle="collapse" href="#addAperson" role="button" aria-expanded="false" aria-controls="addAperson">
-    add new person
-  </a>
-
-  <div class="collapse" id="addAperson">
-    <div class="card card-body">
-      <h3>add person</h3>
-      <form method="POST" action="/person/add">
-        <input type="text" name="name" placeholder="name" />
-        <input type="submit" value="submit" class="btn btn-primary btn-sm" />
-      </form>
-    </div>
-  </div>
-
-  <a class="btn btn-primary" data-toggle="collapse" href="#addAperson" role="button" aria-expanded="false" aria-controls="addAperson">
-    add new person
-  </a>
-
-
-
-  <h3>add Location</h3>
-  <form method="POST" action="/location/add">
-    <input type="text" name="city" placeholder="city" />
-    <input type="submit" value="submit" class="btn btn-primary btn-sm" />
-  </form>
-
-  <a class="btn btn-primary" data-toggle="collapse" href="#addAperson" role="button" aria-expanded="false" aria-controls="addAperson">
-    add new person
-  </a>
-
-  <h3>connect friends</h3>
-  <form method="POST" action="/friends/connect">
-    <input type="text" name="name1" placeholder="name" />
-    <input type="text" name="name2" placeholder="name" />
-    <input type="submit" value="submit" class="btn btn-primary btn-sm" />
-  </form>
-
-  <a class="btn btn-primary" data-toggle="collapse" href="#addAperson" role="button" aria-expanded="false" aria-controls="addAperson">
-    add new person
-  </a>
-
-  <h3>person born in</h3>
-  <form method="POST" action="/person/born/add">
-    <input type="text" name="name" placeholder="name" />
-    <input type="text" name="city" placeholder="city" />
-    <input type="submit" value="submit" class="btn btn-primary btn-sm" />
-  </form>
-
-  <h3>Persons</h3>
-  <div class="row">
-    <% persons.forEach(function(person){ %>
-    <div class="col-md-2">
-      <div class="well"><i class="fa fa-user"></i><a href="/person/<%= person.id %>">
-        <%= person.name %>
+    <div class="container">
+      <a
+        class="btn btn-primary"
+        data-toggle="collapse"
+        href="#addAperson"
+        role="button"
+        aria-expanded="false"
+        aria-controls="addAperson"
+      >
+        new person
       </a>
-    </div>
-    </div>
-    <% }) %>
-    </div class="row">
 
-  <h3>Locations</h3>
-  <div class="row">
-    <% locations.forEach(function(location){ %>
-      <div class="col-md-2">
-    <div class="well"><i class="fa fa-map"></i>
-      <%= location.city %>
+      <div class="collapse" id="addAperson">
+        <div class="card card-body">
+          <h3>add person</h3>
+          <form method="POST" action="/person/add">
+            <input type="text" name="name" placeholder="name" />
+            <input
+              type="submit"
+              value="submit"
+              class="btn btn-primary btn-sm"
+            />
+          </form>
+        </div>
+      </div>
+
+      <a
+        class="btn btn-primary"
+        data-toggle="collapse"
+        href="#addlocation"
+        role="button"
+        aria-expanded="false"
+        aria-controls="addlocation"
+      >
+        new location
+      </a>
+
+      <div class="collapse" id="addlocation">
+        <div class="card card-body">
+          <h3>add Location</h3>
+          <form method="POST" action="/location/add">
+            <input type="text" name="city" placeholder="city" />
+            <input
+              type="submit"
+              value="submit"
+              class="btn btn-primary btn-sm"
+            />
+          </form>
+        </div>
+      </div>
+
+      <a
+        class="btn btn-primary"
+        data-toggle="collapse"
+        href="#connectFriend"
+        role="button"
+        aria-expanded="false"
+        aria-controls="connectFriend"
+      >
+        connect two persons
+      </a>
+
+      <div class="collapse" id="connectFriend">
+        <div class="card card-body">
+          <h3>connect friends</h3>
+          <form method="POST" action="/friends/connect">
+            <input type="text" name="name1" placeholder="name" />
+            <input type="text" name="name2" placeholder="name" />
+            <input
+              type="submit"
+              value="submit"
+              class="btn btn-primary btn-sm"
+            />
+          </form>
+        </div>
+      </div>
+
+      <a
+        class="btn btn-primary"
+        data-toggle="collapse"
+        href="#addBirthplace"
+        role="button"
+        aria-expanded="false"
+        aria-controls="addBirthplace"
+      >
+        add birthplace
+      </a>
+
+      <div class="collapse" id="addBirthplace">
+        <div class="card card-body">
+          <h3>person born in</h3>
+          <form method="POST" action="/person/born/add">
+            <input type="text" name="name" placeholder="name" />
+            <input type="text" name="city" placeholder="city" />
+            <input
+              type="submit"
+              value="submit"
+              class="btn btn-primary btn-sm"
+            />
+          </form>
+        </div>
+      </div>
+
+      <h3><i class="fa fa-user"></i>&nbsp;Persons</h3>
+      <br />
+
+      <div class="py-5">
+        <div class="container p-2">
+          <div class="row p-2">
+            <% persons.forEach((person)=>{ %>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-block">
+                  <h4 class="card-title">
+                    <a href="/person/<%= person.id %>"> <%= person.name %> </a>
+                  </h4>
+                  <h6 class="card-subtitle text-muted">
+                    Support card subtitle
+                  </h6>
+                  <p class="card-text p-y-1">
+                    Some quick example text to build on the card title .
+                  </p>
+                </div>
+              </div>
+            </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+
+      <h3><i class="fa fa-map"></i>&nbsp;Locations</h3>
+      <br />
+      <div class="container">
+        <div class="py-5">
+          <div class="container">
+            <div class="row hidden-md-up">
+              <% locations.forEach((location)=>{ %>
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-block">
+                    <h4 class="card-title"><%= location.city %></h4>
+                  </div>
+                </div>
+              </div>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-    <% }) %>
-    </div>
-  </div>
-  </div>
-</body>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

@@ -81,6 +81,7 @@ app.post("/location/add", (req, res) => {
 app.post("/friends/connect", (req, res) => {
   const name1 = req.body.name1;
   const name2 = req.body.name2;
+  const id = req.body.id;
 
   session
     .run(
@@ -88,7 +89,12 @@ app.post("/friends/connect", (req, res) => {
       { name1, name2 }
     )
     .then((result) => {
-      res.redirect("/");
+      console.log(id);
+      if (id && id != 0) {
+        res.redirect("/person/" + id);
+      } else {
+        res.redirect("/");
+      }
     })
     .catch((error) => {
       console.log(error);
