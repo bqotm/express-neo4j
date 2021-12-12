@@ -1,112 +1,116 @@
 <html lang="en">
   <head>
-    <title>Document</title>
+    <title><%= name %></title>
+    <%- include('../views/components/header.ejs') %>
     <link
+      href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css"
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
-      crossorigin="anonymous"
-    />
+    <style>
+      .jumbotron .btn {
+        color: #ffffff;
+        padding: 5px !important;
+        font-size: 12px !important;
+        margin-left: 20px;
+      }
+      .jumbotron label {
+        font-size: 12px;
+      }
+
+      .img-user {
+        height: 120px;
+        width: 120px;
+        margin-right: 20px;
+      }
+
+      .prj-name {
+        font-weight: bold;
+        color: #000000;
+      }
+
+      .user-item img,
+      .user-item h3 {
+        display: inline-block;
+      }
+
+      .jumbotron .btn .user-item h3 a {
+        color: #111111;
+        padding: 5px !important;
+        font-size: 12px !important;
+      }
+      #homer {
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    </style>
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-dark bg-dark"
-      aria-label="Fifth navbar example"
-    >
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">neo4j network</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarsExample05"
-          aria-controls="navbarsExample05"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExample05">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="/"
-                id="dropdown05"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                >Dropdown</a
-              >
-              <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                <li><a class="dropdown-item" href="/">Action</a></li>
-                <li><a class="dropdown-item" href="/">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="/">Something else here</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <form>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
-        </div>
+    <%- include('../views/components/navbar.ejs') %>
+    <div class="container bootstrap snippets bootdey mt-5">
+      <div class="header">
+        <h3>
+          <span class="fa fa-user" style="font-weight: bold"></span>
+          <%= name %>
+        </h3>
+        <% if(city){ %>
+        <h4>
+          <small style="font-weight: bold; font-style: italic">
+            <span class="fa fa-map-marker"></span>
+            <%= city %>
+          </small>
+        </h4>
+        <% } %>
       </div>
-    </nav>
+      <div class="jumbotron mb-5 mt-5 pb-5" style="height: auto">
+        <h2>fRiEnDs :</h2>
+        <% if(friends.length>0) { %>
+        <ul class="list-group">
+          <% friends.forEach((friend)=>{ %>
+          <li class="list-group-item user-item text-left">
+            <img
+              class="img-circle img-user img-thumbnail"
+              src="https://bootdey.com/img/Content/avatar/avatar<%= Math.floor(Math.random() *8 + 1) %>.png"
+            />
+            <h3>
+              <a href="/person/<%= friend.id %>" class="text-dark"
+                ><%= friend.name %></a
+              ><br />
+            </h3>
+          </li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <h3>&nbsp;&nbsp;- NoNe, GeT a lIfE</h3>
+        <% }%>
+      </div>
 
-    <h2><%= name %></h2>
-    <%if (city){ %>
-    <h3><%= city %></h3>
-    <% } %> <% if(friends.length>0) { %>
-    <ul>
-      <% friends.forEach((friend)=>{ %>
-      <li>
-        <a href="/person/<%= friend.id %>"><%= friend.name %> </a>
-      </li>
-      <% }); %>
-    </ul>
-    <% } %>
-
-    <h3>Add friend</h3>
-    <form method="POST" action="/friends/connect">
-      <input type="hidden" name="id" value="<%= id %>" />
-      <input type="hidden" name="name1" value="<%= name %>" />
-      <input type="text" name="name2" placeholder="name" />
-      <input type="submit" value="submit" class="btn btn-primary btn-sm" />
-    </form>
+      <div
+        class="tab-pane active"
+        id="homer"
+        role="tabpanel"
+        aria-labelledby="home-tab"
+      >
+        <h3>Add a friend</h3>
+        <form method="POST" action="/friends/connect">
+          <input type="hidden" name="id" value="<%= id %>" />
+          <input type="hidden" name="name1" value="<%= name %>" />
+          <input type="text" name="name2" placeholder="name" />
+          <input type="submit" value="submit" class="btn btn-primary btn-sm" />
+        </form>
+      </div>
+    </div>
 
     <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
   </body>

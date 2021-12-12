@@ -170,6 +170,32 @@ app.get("/person/:id", (req, res) => {
     });
 });
 
+app.get("/search/person", (req, res) => {
+  const name = req.query.query;
+  session
+    .run("MATCH (n:Person) WHERE n.name STARTS WITH $sname RETURN n", {
+      sname: name,
+    })
+    .then((result) => {
+      const matchedArr = [];
+      result.records.map((record) => {
+        if (record.get(0) != null) {
+          matchedArr.push({
+            id: record.get(0).identity.low,
+            name: record.get(0).properties.name,
+          });
+        }
+      });
+      res.render("index", {
+        persons: matchedArr,
+        locations: [],
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 app.listen(3000, () => {
   console.log("server started on port 3000");
 });
