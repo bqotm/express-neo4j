@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const neo4j = require("neo4j-driver");
 
 var app = express();
+const PORT = 3000;
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -196,8 +197,8 @@ app.get("/search/person", (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-  console.log("server started on port 3000");
+app.listen(PORT, () => {
+  console.log(`server started in port ${PORT}`);
 });
 
 //session close is ommitted
